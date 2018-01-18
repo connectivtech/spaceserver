@@ -5,11 +5,6 @@ var mysql      = require('mysql');
 var bodyParser = require('body-parser');
 var db = require('./dbconfig');
 
-db.connect(function(err) {
-	if (err) throw err
-	console.log('Connected to mysql')
-})
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -23,10 +18,19 @@ var server = app.listen(8000,"127.0.0.1", function() {
 
 });
 
-//rest api to get all customers
 app.get('/dates', function (req, res) {
-   connection.query('select datedate from dates', function (error, results, fields) {
+   db.query('select datedate from dates', function (error, results, fields) {
 	  if (error) throw error;
 	  res.end(JSON.stringify(results));
+	});
+});
+
+var querySpaces = 'select market, company, location_name, address_1, address_2, address_city, address_state, address_zip from spaces_staging;' ;
+
+app.get('/spaces', function (req, res) {
+   db.query(querySpaces, function (error, results, fields) {
+	  if (error) throw error;
+	  // res.end(JSON.stringify(results));
+	  res.json(results);
 	});
 });
