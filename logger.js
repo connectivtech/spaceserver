@@ -1,6 +1,6 @@
 var winston = require('winston');
-
 var config = require('./config');
+
 require('winston-papertrail').Papertrail;
 
 var winstonPapertrail = new winston.transports.Papertrail({

@@ -7,8 +7,8 @@ var mysql      = require('mysql');
 var bodyParser = require('body-parser');
 var db = require('./dbconfig_local');
 var logger = require('./logger.js');
+var config = require('./config');
 
-var logType = '[spaceserver] '
 
 app.use(compression());
 app.use(bodyParser.json());
@@ -21,9 +21,7 @@ var server = app.listen(8001,"0.0.0.0", function() {
 	var port = server.address().port
 
 	console.log("API listening http://%s:%s", host, port)
-	var startupUrl = app.protocol + '://' + app.get('host') + app.originalUrl;
-
-	logger.info(logType + "API startup at http://%s:%s", host, port );
+	logger.info(config.logType + "API startup at http://%s:%s", host, port );
 
 });
 

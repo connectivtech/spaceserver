@@ -3,8 +3,8 @@
 var config = {};
 
 config.logType = '[spaceserver] ';
-config.papertrailHost = 'xxxx.papertrailapp.com';
-config.papertrailPort = 12345 ;
+config.papertrailHost = 'logs2.papertrailapp.com';
+config.papertrailPort = 22863 ;
 
 // todo: move DB stuff in here
 
