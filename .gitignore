@@ -58,3 +58,4 @@ typings/
 .env
 
 dbconfig_local.js
+config_local.js
