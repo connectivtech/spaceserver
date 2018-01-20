@@ -1,11 +1,16 @@
 var http = require("http");
 // var https = require("https");
+var compression = require('compression');
 var express = require('express');
 var app = express();
 var mysql      = require('mysql');
 var bodyParser = require('body-parser');
 var db = require('./dbconfig_local');
+var logger = require('./logger.js');
 
+var logType = '[spaceserver] '
+
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
 	extended: true
@@ -16,6 +21,9 @@ var server = app.listen(8001,"0.0.0.0", function() {
 	var port = server.address().port
 
 	console.log("API listening http://%s:%s", host, port)
+	var startupUrl = app.protocol + '://' + app.get('host') + app.originalUrl;
+
+	logger.info(logType + "API startup at http://%s:%s", host, port );
 
 });
 
@@ -45,7 +53,7 @@ app.get('/markets', function (req, res) {
 	  console.log(fullUrl);
 
 	  for (i = 0; i < results.length; i++) {
-	  	console.log(results[i].market);
+	  	// console.log(results[i].market);
 		results[i].marketSpacesLink = fullUrl + "/" + results[i].market;
 	  }
 
